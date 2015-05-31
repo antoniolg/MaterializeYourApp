@@ -30,8 +30,8 @@
         android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="200dp"
-        android:clipToPadding="false">
+        android:clipToPadding="false"
+        android:paddingTop="200dp">
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -45,25 +45,25 @@
                 app:cardUseCompatPadding="true">
 
                 <LinearLayout
-                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/spacing_large"
                         android:layout_marginLeft="@dimen/spacing_large"
                         android:layout_marginRight="@dimen/spacing_large"
+                        android:layout_marginTop="@dimen/spacing_large"
                         android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
 
                     <TextView
                         android:id="@+id/description"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/lorem_ipsum"
                         android:layout_margin="@dimen/spacing_large"
+                        android:text="@string/lorem_ipsum"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
                 </LinearLayout>
@@ -72,9 +72,9 @@
 
             <ImageButton
                 android:id="@+id/fab"
+                style="@style/FabStyle"
                 android:layout_gravity="top|end"
-                android:layout_marginRight="@dimen/spacing_xlarge"
-                style="@style/FabStyle"/>
+                android:layout_marginRight="@dimen/spacing_xlarge"/>
 
         </FrameLayout>
 

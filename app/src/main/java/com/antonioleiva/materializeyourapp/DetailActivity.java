@@ -31,7 +31,8 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.view.ViewCompat;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
 import android.transition.Slide;
@@ -45,13 +46,13 @@ import android.widget.TextView;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
-public class DetailActivity extends ActionBarActivity {
+public class DetailActivity extends AppCompatActivity {
 
     private static final String EXTRA_IMAGE = "com.antonioleiva.materializeyourapp.extraImage";
     private static final String EXTRA_TITLE = "com.antonioleiva.materializeyourapp.extraTitle";
     private Toolbar toolbar;
 
-    public static void navigate(ActionBarActivity activity, View transitionImage, ViewModel viewModel) {
+    public static void navigate(AppCompatActivity activity, View transitionImage, ViewModel viewModel) {
         Intent intent = new Intent(activity, DetailActivity.class);
         intent.putExtra(EXTRA_IMAGE, viewModel.getImage());
         intent.putExtra(EXTRA_TITLE, viewModel.getText());
@@ -69,7 +70,10 @@ public class DetailActivity extends ActionBarActivity {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
         String itemTitle = getIntent().getStringExtra(EXTRA_TITLE);
         setTitle(itemTitle);
@@ -79,7 +83,7 @@ public class DetailActivity extends ActionBarActivity {
         Picasso.with(this).load(getIntent().getStringExtra(EXTRA_IMAGE)).into(image, new Callback() {
             @Override public void onSuccess() {
                 Bitmap bitmap = ((BitmapDrawable) image.getDrawable()).getBitmap();
-                Palette.generateAsync(bitmap, new Palette.PaletteAsyncListener() {
+                Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
                     public void onGenerated(Palette palette) {
                         applyPalette(palette, image);
                     }

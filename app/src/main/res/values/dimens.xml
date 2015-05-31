@@ -23,4 +23,5 @@
 
     <dimen name="elevation_low">9dp</dimen>
     <dimen name="elevation_high">12dp</dimen>
+    <dimen name="status_bar_height">25dp</dimen>
 </resources>

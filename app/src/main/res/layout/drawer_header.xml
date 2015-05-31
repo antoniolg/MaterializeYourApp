@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (C) ${YEAR} Antonio Leiva
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~       http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="172dp"
+             android:background="@drawable/drawer_background"
+             android:orientation="vertical"
+             android:paddingTop="@dimen/status_bar_height"
+             android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+    <ImageView
+        android:id="@+id/avatar"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_margin="@dimen/spacing_large"
+        android:elevation="4dp"
+        tools:src="@drawable/ic_launcher"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/email"
+        android:layout_marginLeft="@dimen/spacing_large"
+        android:layout_marginStart="@dimen/spacing_large"
+        android:text="Username"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
+    <TextView
+        android:id="@+id/email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/spacing_large"
+        android:layout_marginStart="@dimen/spacing_large"
+        android:layout_marginBottom="@dimen/spacing_large"
+        android:text="username@mymail.com"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+</RelativeLayout>
