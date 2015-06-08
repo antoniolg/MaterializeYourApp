@@ -36,13 +36,13 @@ public class ScrollManager extends RecyclerView.OnScrollListener {
     private int initialOffset;
     private HashMap<View, Direction> viewsToHide = new HashMap<>();
 
-    public static enum Direction {UP, DOWN}
+    public enum Direction {UP, DOWN}
 
     public ScrollManager() {
     }
 
     public void attach(RecyclerView recyclerView) {
-        recyclerView.setOnScrollListener(this);
+        recyclerView.addOnScrollListener(this);
     }
 
     public void addView(View view, Direction direction) {
