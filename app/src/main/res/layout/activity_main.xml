@@ -15,10 +15,10 @@
   -->
 
 <android.support.v4.widget.DrawerLayout
+    android:id="@+id/drawer_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -37,10 +37,9 @@
             android:clipToPadding="false"
             android:paddingTop="?attr/actionBarSize"/>
 
-        <ImageButton
+        <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab"
-            style="@style/FabStyle"
-            android:layout_gravity="bottom|end"/>
+            style="@style/FabStyle"/>
 
         <include layout="@layout/includes_toolbar"/>
 

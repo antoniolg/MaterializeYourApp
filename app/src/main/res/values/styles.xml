@@ -16,7 +16,9 @@
 
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="BaseTheme"/>
+
+    <style name="BaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/primary</item> 
         <item name="colorPrimaryDark">@color/primary_dark</item> 
         <item name="colorControlHighlight">@color/accent_translucent</item> 
@@ -27,17 +29,18 @@
         <item name="android:windowSharedElementEnterTransition">@android:transition/move</item>
         <item name="android:windowSharedElementExitTransition">@android:transition/move</item>
         <item name="android:windowSharedElementsUseOverlay">false</item>
-        <item name="android:windowTranslucentStatus">true</item>
     </style>
 
     <style name="FabStyle">
-        <item name="android:layout_width">?attr/actionBarSize</item>
-        <item name="android:layout_height">?attr/actionBarSize</item>
-        <item name="android:layout_margin">@dimen/spacing_large</item>
-        <item name="android:background">@drawable/fab_background</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">@dimen/fab_compat_margin</item>
+        <item name="android:layout_gravity">bottom|end</item>
         <item name="android:src">@drawable/ic_add_black</item>
-        <item name="android:outlineProvider">background</item>
-        <item name="android:stateListAnimator">@anim/fab_elevation</item>
+        <item name="borderWidth">0dp</item>
+        <item name="elevation">6dp</item>
+        <item name="pressedTranslationZ">12dp</item>
+        <item name="rippleColor">@android:color/white</item>
     </style>
 
     <color name="primary">#00BCD4</color>

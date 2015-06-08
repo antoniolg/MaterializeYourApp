@@ -17,6 +17,7 @@
 package com.antonioleiva.materializeyourapp;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
@@ -28,9 +29,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.antonioleiva.materializeyourapp.picasso.CircleTransform;
 import com.squareup.picasso.Picasso;
@@ -41,7 +40,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements RecyclerViewAdapter.OnItemClickListener {
 
-    public static final String AVATAR_URL = "http://lorempixel.com/200/200/people/9/";
+    public static final String AVATAR_URL = "http://lorempixel.com/200/200/people/1/";
 
     private static List<ViewModel> items = new ArrayList<>();
 
@@ -54,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     private DrawerLayout drawerLayout;
     private View content;
     private RecyclerView recyclerView;
-    private ImageButton fab;
+    private FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,11 +80,11 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     }
 
     private void initFab() {
-        fab = (ImageButton) findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Hello", Toast.LENGTH_SHORT).show();
+                Snackbar.make(content, "FAB Clicked", Snackbar.LENGTH_SHORT).show();
             }
         });
     }

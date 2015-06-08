@@ -20,14 +20,11 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.RippleDrawable;
-import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.view.ViewCompat;
@@ -114,23 +111,16 @@ public class DetailActivity extends AppCompatActivity {
         toolbar.setBackgroundColor(palette.getMutedColor(primary));
         WindowCompatUtils.setStatusBarcolor(getWindow(), palette.getDarkMutedColor(primaryDark));
         initScrollFade(image);
-        updateBackground(findViewById(R.id.fab), palette);
+        updateBackground((FloatingActionButton) findViewById(R.id.fab), palette);
         ActivityCompat.startPostponedEnterTransition(this);
     }
 
-    private void updateBackground(View view, Palette palette) {
-        int lightMutedColor = palette.getLightMutedColor(getResources().getColor(R.color.accent));
+    private void updateBackground(FloatingActionButton fab, Palette palette) {
+        int lightMutedColor = palette.getLightMutedColor(getResources().getColor(android.R.color.white));
         int mutedColor = palette.getMutedColor(getResources().getColor(R.color.accent));
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            RippleDrawable ripple = (RippleDrawable) view.getBackground();
-            GradientDrawable rippleBackground = (GradientDrawable) ripple.getDrawable(0);
-            rippleBackground.setColor(lightMutedColor);
-            ripple.setColor(ColorStateList.valueOf(mutedColor));
-        } else {
-            StateListDrawable drawable = (StateListDrawable) view.getBackground();
-            drawable.setColorFilter(mutedColor, PorterDuff.Mode.SRC_ATOP);
-        }
+        fab.setRippleColor(lightMutedColor);
+        fab.setBackgroundTintList(ColorStateList.valueOf(mutedColor));
     }
 
     private void initScrollFade(final ImageView image) {

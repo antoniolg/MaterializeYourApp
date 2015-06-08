@@ -70,15 +70,13 @@
 
             </android.support.v7.widget.CardView>
 
-            <ImageButton
-                android:id="@+id/fab"
-                style="@style/FabStyle"
-                android:layout_gravity="top|end"
-                android:layout_marginRight="@dimen/spacing_xlarge"/>
-
         </FrameLayout>
 
     </ScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        style="@style/FabStyle"/>
 
     <include layout="@layout/includes_toolbar"/>
 
