@@ -17,7 +17,6 @@
 package com.antonioleiva.materializeyourapp;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
@@ -52,8 +51,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
 
     private DrawerLayout drawerLayout;
     private View content;
-    private RecyclerView recyclerView;
-    private FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     }
 
     private void initRecyclerView() {
-        recyclerView = (RecyclerView) findViewById(R.id.recycler);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(items);
         adapter.setOnItemClickListener(this);
@@ -80,9 +77,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     }
 
     private void initFab() {
-        fab = (FloatingActionButton) findViewById(R.id.fab);
-
-        fab.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
                 Snackbar.make(content, "FAB Clicked", Snackbar.LENGTH_SHORT).show();
             }
@@ -98,17 +93,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
             actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
-
-        // Toolbar height needs to be known before establishing the initial offset
-        toolbar.post(new Runnable() {
-            @Override public void run() {
-                ScrollManager manager = new ScrollManager();
-                manager.attach(recyclerView);
-                manager.addView(toolbar, ScrollManager.Direction.UP);
-                manager.addView(fab, ScrollManager.Direction.DOWN);
-                manager.setInitialOffset(toolbar.getHeight());
-            }
-        });
     }
 
     private void setupDrawerLayout() {
