@@ -19,24 +19,19 @@ package com.antonioleiva.materializeyourapp;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.view.ViewCompat;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
 import android.transition.Slide;
-import android.transition.Transition;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -47,7 +42,7 @@ public class DetailActivity extends AppCompatActivity {
 
     private static final String EXTRA_IMAGE = "com.antonioleiva.materializeyourapp.extraImage";
     private static final String EXTRA_TITLE = "com.antonioleiva.materializeyourapp.extraTitle";
-    private Toolbar toolbar;
+    private CollapsingToolbarLayout collapsingToolbarLayout;
 
     public static void navigate(AppCompatActivity activity, View transitionImage, ViewModel viewModel) {
         Intent intent = new Intent(activity, DetailActivity.class);
@@ -58,31 +53,30 @@ public class DetailActivity extends AppCompatActivity {
         ActivityCompat.startActivity(activity, intent, options.toBundle());
     }
 
+    @SuppressWarnings("ConstantConditions")
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initActivityTransitions();
-
         setContentView(R.layout.activity_detail);
-        ActivityCompat.postponeEnterTransition(this);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
+        ViewCompat.setTransitionName(findViewById(R.id.app_bar_layout), EXTRA_IMAGE);
+        supportPostponeEnterTransition();
+
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         String itemTitle = getIntent().getStringExtra(EXTRA_TITLE);
-        setTitle(itemTitle);
+        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        collapsingToolbarLayout.setTitle(itemTitle);
+        collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
 
         final ImageView image = (ImageView) findViewById(R.id.image);
-        ViewCompat.setTransitionName(image, EXTRA_IMAGE);
         Picasso.with(this).load(getIntent().getStringExtra(EXTRA_IMAGE)).into(image, new Callback() {
             @Override public void onSuccess() {
                 Bitmap bitmap = ((BitmapDrawable) image.getDrawable()).getBitmap();
                 Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
                     public void onGenerated(Palette palette) {
-                        applyPalette(palette, image);
+                        applyPalette(palette);
                     }
                 });
             }
@@ -105,83 +99,20 @@ public class DetailActivity extends AppCompatActivity {
         }
     }
 
-    private void applyPalette(Palette palette, ImageView image) {
+    private void applyPalette(Palette palette) {
         int primaryDark = getResources().getColor(R.color.primary_dark);
         int primary = getResources().getColor(R.color.primary);
-        toolbar.setBackgroundColor(palette.getMutedColor(primary));
-        WindowCompatUtils.setStatusBarcolor(getWindow(), palette.getDarkMutedColor(primaryDark));
-        initScrollFade(image);
+        collapsingToolbarLayout.setContentScrimColor(palette.getMutedColor(primary));
+        collapsingToolbarLayout.setStatusBarScrimColor(palette.getDarkMutedColor(primaryDark));
         updateBackground((FloatingActionButton) findViewById(R.id.fab), palette);
-        ActivityCompat.startPostponedEnterTransition(this);
+        supportStartPostponedEnterTransition();
     }
 
     private void updateBackground(FloatingActionButton fab, Palette palette) {
-        int lightMutedColor = palette.getLightMutedColor(getResources().getColor(android.R.color.white));
-        int mutedColor = palette.getMutedColor(getResources().getColor(R.color.accent));
+        int lightVibrantColor = palette.getLightVibrantColor(getResources().getColor(android.R.color.white));
+        int vibrantColor = palette.getVibrantColor(getResources().getColor(R.color.accent));
 
-        fab.setRippleColor(lightMutedColor);
-        fab.setBackgroundTintList(ColorStateList.valueOf(mutedColor));
-    }
-
-    private void initScrollFade(final ImageView image) {
-        final View scrollView = findViewById(R.id.scroll);
-
-        setComponentsStatus(scrollView, image);
-
-        scrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
-            @Override
-            public void onScrollChanged() {
-                setComponentsStatus(scrollView, image);
-            }
-        });
-    }
-
-    private void setComponentsStatus(View scrollView, ImageView image) {
-        int scrollY = scrollView.getScrollY();
-        image.setTranslationY(-scrollY / 2);
-        ColorDrawable background = (ColorDrawable) toolbar.getBackground();
-        int padding = scrollView.getPaddingTop();
-        double alpha = (1 - (((double) padding - (double) scrollY) / (double) padding)) * 255.0;
-        alpha = alpha < 0 ? 0 : alpha;
-        alpha = alpha > 255 ? 255 : alpha;
-
-        background.setAlpha((int) alpha);
-
-        float scrollRatio = (float) (alpha / 255f);
-        int titleColor = getAlphaColor(Color.WHITE, scrollRatio);
-        toolbar.setTitleTextColor(titleColor);
-    }
-
-    private int getAlphaColor(int color, float scrollRatio) {
-        return Color.argb((int) (scrollRatio * 255f), Color.red(color), Color.green(color), Color.blue(color));
-    }
-
-    /**
-     * It seems that the ActionBar view is reused between activities. Changes need to be reverted,
-     * or the ActionBar will be transparent when we go back to Main Activity
-     */
-    private void restablishActionBar() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().getReturnTransition().addListener(new TransitionAdapter() {
-                @Override public void onTransitionEnd(Transition transition) {
-                    toolbar.setTitleTextColor(Color.WHITE);
-                    toolbar.getBackground().setAlpha(255);
-                }
-            });
-        }
-    }
-
-    @Override public void onBackPressed() {
-        restablishActionBar();
-        super.onBackPressed();
-    }
-
-    @Override public boolean onOptionsItemSelected(MenuItem item) {
-
-        if (item.getItemId() == android.R.id.home) {
-            restablishActionBar();
-        }
-
-        return super.onOptionsItemSelected(item);
+        fab.setRippleColor(lightVibrantColor);
+        fab.setBackgroundTintList(ColorStateList.valueOf(vibrantColor));
     }
 }
