@@ -16,6 +16,7 @@
 
 package com.antonioleiva.materializeyourapp;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -51,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
 
     private DrawerLayout drawerLayout;
     private View content;
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,11 +68,25 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
 
         final ImageView avatar = (ImageView) findViewById(R.id.avatar);
         Picasso.with(this).load(AVATAR_URL).transform(new CircleTransform()).into(avatar);
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            setRecyclerAdapter(recyclerView);
+        }
+    }
+
+    @Override public void onEnterAnimationComplete() {
+        super.onEnterAnimationComplete();
+        setRecyclerAdapter(recyclerView);
+        recyclerView.scheduleLayoutAnimation();
     }
 
     private void initRecyclerView() {
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler);
+        recyclerView = (RecyclerView) findViewById(R.id.recycler);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+
+    }
+
+    private void setRecyclerAdapter(RecyclerView recyclerView) {
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(items);
         adapter.setOnItemClickListener(this);
         recyclerView.setAdapter(adapter);

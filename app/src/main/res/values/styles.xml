@@ -30,7 +30,7 @@
     <style name="FabStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_margin">@dimen/fab_compat_margin</item>
+        <item name="android:layout_margin">@dimen/spacing_large</item>
         <item name="android:src">@drawable/ic_add_black</item>
         <item name="borderWidth">0dp</item>
         <item name="elevation">6dp</item>

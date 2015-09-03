@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.antonioleiva.materializeyourapp;
+package com.antonioleiva.materializeyourapp.widgets;
 
 import android.content.Context;
 import android.util.AttributeSet;

@@ -39,7 +39,7 @@
             app:expandedTitleMarginEnd="64dp"
             android:fitsSystemWindows="true">
 
-            <com.antonioleiva.materializeyourapp.SquareImageView
+            <com.antonioleiva.materializeyourapp.widgets.SquareImageView
                 android:id="@+id/image"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

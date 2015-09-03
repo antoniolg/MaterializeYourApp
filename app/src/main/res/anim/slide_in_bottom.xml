@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Copyright (C) 2015 Antonio Leiva
   ~
@@ -13,7 +14,7 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-
-<resources>
-    <dimen name="fab_compat_margin">16dp</dimen>
-</resources>
+<translate xmlns:android="http://schemas.android.com/apk/res/android"
+           android:interpolator="@android:anim/decelerate_interpolator"
+           android:fromYDelta="100%p" android:toYDelta="0"
+           android:duration="@android:integer/config_mediumAnimTime"/>
