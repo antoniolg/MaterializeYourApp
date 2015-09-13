@@ -31,6 +31,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
 import android.transition.Slide;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -88,6 +89,14 @@ public class DetailActivity extends AppCompatActivity {
 
         TextView title = (TextView) findViewById(R.id.title);
         title.setText(itemTitle);
+    }
+
+    @Override public boolean dispatchTouchEvent(MotionEvent motionEvent) {
+        try {
+            return super.dispatchTouchEvent(motionEvent);
+        } catch (NullPointerException e) {
+            return false;
+        }
     }
 
     private void initActivityTransitions() {
