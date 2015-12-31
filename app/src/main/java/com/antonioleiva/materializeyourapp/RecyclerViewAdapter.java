@@ -60,14 +60,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     @Override public void onClick(final View v) {
-        // Give some time to the ripple to finish the effect
-        if (onItemClickListener != null) {
-            new Handler().postDelayed(new Runnable() {
-                @Override public void run() {
-                    onItemClickListener.onItemClick(v, (ViewModel) v.getTag());
-                }
-            }, 200);
-        }
+        onItemClickListener.onItemClick(v, (ViewModel) v.getTag());
     }
 
     protected static class ViewHolder extends RecyclerView.ViewHolder {
