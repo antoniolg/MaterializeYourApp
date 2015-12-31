@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     private DrawerLayout drawerLayout;
     private View content;
     private RecyclerView recyclerView;
+    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
 
         content = findViewById(R.id.content);
 
-        final ImageView avatar = (ImageView) findViewById(R.id.avatar);
+        final ImageView avatar = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.avatar);
         Picasso.with(this).load(AVATAR_URL).transform(new CircleTransform()).into(avatar);
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
@@ -114,8 +115,8 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     private void setupDrawerLayout() {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
-        NavigationView view = (NavigationView) findViewById(R.id.navigation_view);
-        view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+        navigationView = (NavigationView) findViewById(R.id.navigation_view);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override public boolean onNavigationItemSelected(MenuItem menuItem) {
                 Snackbar.make(content, menuItem.getTitle() + " pressed", Snackbar.LENGTH_LONG).show();
                 menuItem.setChecked(true);
