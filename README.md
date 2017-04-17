@@ -13,7 +13,7 @@ After that, I've used this example in some other articles:
 
 [More info and tutorials @ antonioleiva.com](http://antonioleiva.com/)
 
-#License
+# License
 
     Copyright 2015 Antonio Leiva
 
