@@ -59,13 +59,13 @@ public class DetailActivity extends AppCompatActivity {
     @BindView(R.id.scroll) NestedScrollView scroll;
     @BindView(R.id.fab) FloatingActionButton fab;
 
-    public static void navigate(AppCompatActivity activity, View transitionImage, ViewModel viewModel) {
-        Intent intent = new Intent(activity, DetailActivity.class);
+    public static void navigate(AppCompatActivity fromActivity, View transitionImage, ViewModel viewModel) {
+        Intent intent = new Intent(fromActivity, DetailActivity.class);
         intent.putExtra(EXTRA_IMAGE, viewModel.getImage());
         intent.putExtra(EXTRA_TITLE, viewModel.getText());
 
-        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, transitionImage, EXTRA_IMAGE);
-        ActivityCompat.startActivity(activity, intent, options.toBundle());
+        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(fromActivity, transitionImage, EXTRA_IMAGE);
+        ActivityCompat.startActivity(fromActivity, intent, options.toBundle());
     }
 
     @SuppressWarnings("ConstantConditions")
