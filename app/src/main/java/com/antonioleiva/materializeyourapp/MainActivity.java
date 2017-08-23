@@ -28,6 +28,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.appBarLayout) AppBarLayout appBarLayout;
-    @BindView(R.id.recycler_view) GridRecyclerView recyclerView;
+    @BindView(R.id.recycler_view) RecyclerView recyclerView;
     @BindView(R.id.fab) FloatingActionButton fab;
     @BindView(R.id.content) CoordinatorLayout content;
     @BindView(R.id.navigation_view) NavigationView navigationView;
@@ -76,9 +77,31 @@ public class MainActivity extends AppCompatActivity {
         Picasso.with(this).load(AVATAR_URL).transform(new CircleTransform()).into(avatar);
     }
 
-    @Override
-    public void onEnterAnimationComplete() {
-        super.onEnterAnimationComplete();
+    private void initializeUI() {
+        setSupportActionBar(toolbar);
+        final ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
+        layoutManager = new GridLayoutManager(this, 3, LinearLayoutManager.VERTICAL, false);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(layoutManager);
+        bindDataWithRecyclerView();
+
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+                Snackbar.make(content, menuItem.getTitle() + " pressed", Snackbar.LENGTH_LONG).show();
+                menuItem.setChecked(true);
+                drawerLayout.closeDrawers();
+                return true;
+            }
+        });
+    }
+
+    private void bindDataWithRecyclerView(){
         adapter = new RecyclerViewAdapter(items);
         recyclerView.setAdapter(adapter);
         recyclerView.scheduleLayoutAnimation();
@@ -91,35 +114,33 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onEnterAnimationComplete() {
+        super.onEnterAnimationComplete();
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
-        for (int i = 1; i <= 10; i++) {
-            items.add(new ViewModel("Item " + i, "http://lorempixel.com/500/500/animals/" + i));
-        }
+        loadItems();
     }
 
-    private void initializeUI() {
-        setSupportActionBar(toolbar);
-        final ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-
-        layoutManager = new GridLayoutManager(this, 3, LinearLayoutManager.VERTICAL, false);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(layoutManager);
-
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(MenuItem menuItem) {
-                Snackbar.make(content, menuItem.getTitle() + " pressed", Snackbar.LENGTH_LONG).show();
-                menuItem.setChecked(true);
-                drawerLayout.closeDrawers();
-                return true;
+    private void loadItems(){
+        items.clear();
+        int j = 0;
+        for (int i = 1; i <= 30; i++) {
+            if(i <= 10)
+                j = i;
+            else if(i > 10 && i <= 20){
+                j = i - 10;
             }
-        });
+            else if(i > 20 && i <= 30){
+                j = i - 20;
+            }
+            items.add(new ViewModel("Item " + i, "http://lorempixel.com/500/500/animals/" + j));
+        }
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

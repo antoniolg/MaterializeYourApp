@@ -50,7 +50,7 @@ public class DetailActivity extends AppCompatActivity {
     private static final String EXTRA_IMAGE = "com.antonioleiva.materializeyourapp.extraImage";
     private static final String EXTRA_TITLE = "com.antonioleiva.materializeyourapp.extraTitle";
 
-    @BindView(R.id.image) SquareImageView image;
+    @BindView(R.id.image) ImageView image;
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.collapsing_toolbar) CollapsingToolbarLayout collapsingToolbar;
     @BindView(R.id.app_bar_layout) AppBarLayout appBarLayout;
@@ -81,6 +81,12 @@ public class DetailActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
         String itemTitle = getIntent().getStringExtra(EXTRA_TITLE);
         collapsingToolbar.setTitle(itemTitle);
@@ -96,7 +102,6 @@ public class DetailActivity extends AppCompatActivity {
                     }
                 });
             }
-
             @Override
             public void onError() {
 
