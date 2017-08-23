@@ -28,7 +28,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> implements View.OnClickListener {
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>{
 
     private List<ViewModel> items;
     private OnItemClickListener onItemClickListener;
@@ -42,8 +42,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     @Override public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recycler, parent, false);
-        v.setOnClickListener(this);
+        final View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recycler, parent, false);
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onItemClickListener.onItemClick(v, (ViewModel) v.getTag());
+            }
+        });
         return new ViewHolder(v);
     }
 
@@ -59,9 +64,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return items.size();
     }
 
-    @Override public void onClick(final View v) {
-        onItemClickListener.onItemClick(v, (ViewModel) v.getTag());
-    }
 
     protected static class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView image;
