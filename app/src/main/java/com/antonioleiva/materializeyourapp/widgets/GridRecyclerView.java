@@ -49,15 +49,6 @@ public class GridRecyclerView extends RecyclerView {
     }
 
     @Override
-    public void setLayoutManager(LayoutManager layout) {
-        if (layout instanceof GridLayoutManager) {
-            super.setLayoutManager(layout);
-        } else {
-            throw new ClassCastException("You should only use a GridLayoutManager with GridRecyclerView.");
-        }
-    }
-
-    @Override
     protected void attachLayoutAnimationParameters(View child, @NonNull ViewGroup.LayoutParams params, int index, int count) {
 
         if (getAdapter() != null && getLayoutManager() instanceof GridLayoutManager) {
