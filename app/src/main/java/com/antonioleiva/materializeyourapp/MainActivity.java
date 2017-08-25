@@ -16,6 +16,7 @@
 
 package com.antonioleiva.materializeyourapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
@@ -104,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
     private void bindDataWithRecyclerView(){
         adapter = new RecyclerViewAdapter(items);
         recyclerView.setAdapter(adapter);
-        recyclerView.scheduleLayoutAnimation();
+        recyclerView.scheduleLayoutAnimation();   //Main Statement which executes the animation
         adapter.setOnItemClickListener(new RecyclerViewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, ViewModel viewModel) {
@@ -130,17 +131,13 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 1; i <= 30; i++) {
             if(i <= 10)
                 j = i;
-            else if(i > 10 && i <= 20){
+            else if(i > 10 && i <= 20)
                 j = i - 10;
-            }
-            else if(i > 20 && i <= 30){
+            else if(i > 20 && i <= 30)
                 j = i - 20;
-            }
             items.add(new ViewModel("Item " + i, "http://lorempixel.com/500/500/animals/" + j));
         }
     }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -150,11 +147,16 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                drawerLayout.openDrawer(GravityCompat.START);
-                return true;
+
+        int id = item.getItemId();
+        if(id == android.R.id.home){
+            drawerLayout.openDrawer(GravityCompat.START);
         }
+        if(id == R.id.settings){
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
+        }
+
         return super.onOptionsItemSelected(item);
     }
 

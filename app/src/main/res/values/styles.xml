@@ -31,16 +31,37 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_margin">@dimen/spacing_large</item>
-        <item name="android:src">@drawable/ic_add_black</item>
+        <item name="android:src">@drawable/ic_add_black_24dp</item>
         <item name="borderWidth">0dp</item>
         <item name="elevation">6dp</item>
         <item name="pressedTranslationZ">12dp</item>
         <item name="rippleColor">@android:color/white</item>
     </style>
 
-    <color name="primary">#00BCD4</color>
-    <color name="primary_dark">#0097A7</color>
-    <color name="accent">#FFEB3B</color>
-    <color name="accent_translucent">#80FFEB3B</color>
-    <color name="accent_bright">#FFF493</color>
+    <style name="WhiteButton" parent="android:Widget.Material.Button.Borderless">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/white_stroke_button</item>
+        <item name="android:paddingLeft">@dimen/dimen_48dp</item>
+        <item name="android:paddingRight">@dimen/dimen_48dp</item>
+        <item name="android:paddingTop">@dimen/dimen_8dp</item>
+        <item name="android:paddingBottom">@dimen/dimen_8dp</item>
+        <item name="android:minHeight">@dimen/dimen_0dp</item>
+        <item name="android:minWidth">@dimen/dimen_0dp</item>
+    </style>
+
+    <style name="BlackButton" parent="android:Widget.Material.Button.Borderless">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/faded_black</item>
+        <item name="android:background">@drawable/black_stroke_button</item>
+        <item name="android:paddingLeft">@dimen/dimen_48dp</item>
+        <item name="android:paddingRight">@dimen/dimen_48dp</item>
+        <item name="android:paddingTop">@dimen/dimen_8dp</item>
+        <item name="android:paddingBottom">@dimen/dimen_8dp</item>
+        <item name="android:minHeight">@dimen/dimen_0dp</item>
+        <item name="android:minWidth">@dimen/dimen_0dp</item>
+    </style>
+
 </resources>

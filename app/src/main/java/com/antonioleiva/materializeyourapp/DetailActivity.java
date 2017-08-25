@@ -16,9 +16,11 @@
 
 package com.antonioleiva.materializeyourapp;
 
+import android.animation.Animator;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -35,10 +37,14 @@ import android.support.v7.widget.Toolbar;
 import android.transition.Slide;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewAnimationUtils;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.antonioleiva.materializeyourapp.widgets.SquareImageView;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -58,6 +64,17 @@ public class DetailActivity extends AppCompatActivity {
     @BindView(R.id.description) TextView description;
     @BindView(R.id.scroll) NestedScrollView scroll;
     @BindView(R.id.fab) FloatingActionButton fab;
+    @BindView(R.id.revealView) LinearLayout revealView;
+    @BindView(R.id.layoutButtons) LinearLayout layoutButtons;
+    @BindView(R.id.duplicate) Button duplicate;
+    @BindView(R.id.edit) Button edit;
+    @BindView(R.id.delete) Button delete;
+
+    private Animation fadeIn;
+    private Animation fadeOut;
+    private Animation rotateClock;
+    private Animation rotateAnti;
+    private boolean flag = false;
 
     public static void navigate(AppCompatActivity fromActivity, View transitionImage, ViewModel viewModel) {
         Intent intent = new Intent(fromActivity, DetailActivity.class);
@@ -75,6 +92,13 @@ public class DetailActivity extends AppCompatActivity {
         initActivityTransitions();
         setContentView(R.layout.activity_detail);
         ButterKnife.bind(this);
+
+        fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in);
+        fadeOut = AnimationUtils.loadAnimation(this, R.anim.fade_out);
+        rotateClock = AnimationUtils.loadAnimation(this, R.anim.rotate_clockwise);
+        rotateAnti = AnimationUtils.loadAnimation(this, R.anim.rotate_anticlock);
+        rotateClock.setFillAfter(true);
+        rotateAnti.setFillAfter(true);
 
         ViewCompat.setTransitionName(appBarLayout, EXTRA_IMAGE);
         supportPostponeEnterTransition();
@@ -102,13 +126,119 @@ public class DetailActivity extends AppCompatActivity {
                     }
                 });
             }
+
             @Override
             public void onError() {
-
             }
         });
 
         title.setText(itemTitle);
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                revealTheLayout();
+            }
+        });
+    }
+
+    private void revealTheLayout() {
+        final int x = image.getRight();
+        final int y = image.getBottom();
+        final int hypotenuse = (int) Math.hypot(image.getWidth(), image.getHeight());
+
+        ColorStateList colorList = fab.getBackgroundTintList();
+        int color = colorList.getDefaultColor();
+        if (color == Color.parseColor("#FFEB3B")) {
+            duplicate.setTextColor(getResources().getColor(R.color.faded_black));
+            duplicate.setBackground(getResources().getDrawable(R.drawable.black_stroke_button));
+            edit.setTextColor(getResources().getColor(R.color.faded_black));
+            edit.setBackground(getResources().getDrawable(R.drawable.black_stroke_button));
+            delete.setTextColor(getResources().getColor(R.color.faded_black));
+            delete.setBackground(getResources().getDrawable(R.drawable.black_stroke_button));
+        } else {
+            duplicate.setTextColor(getResources().getColor(R.color.white));
+            duplicate.setBackground(getResources().getDrawable(R.drawable.white_stroke_button));
+            edit.setTextColor(getResources().getColor(R.color.white));
+            edit.setBackground(getResources().getDrawable(R.drawable.white_stroke_button));
+            delete.setTextColor(getResources().getColor(R.color.white));
+            delete.setBackground(getResources().getDrawable(R.drawable.white_stroke_button));
+        }
+        revealView.setBackgroundColor(color);
+
+        if (!flag) {
+            flag = true;
+            fab.startAnimation(rotateClock);
+            revealView.setVisibility(View.VISIBLE);
+            layoutButtons.setVisibility(View.GONE);
+
+            Animator anim = ViewAnimationUtils.createCircularReveal(revealView, x, y, 0, hypotenuse);
+            anim.setDuration(250);
+            anim.addListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animator) {
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animator) {
+                    layoutButtons.setVisibility(View.VISIBLE);
+                    layoutButtons.startAnimation(fadeIn);
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animator) {
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animator) {
+                }
+            });
+            anim.start();
+        } else {
+            fab.startAnimation(rotateAnti);
+            layoutButtons.startAnimation(fadeOut);
+            fadeOut.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    layoutButtons.setVisibility(View.GONE);
+                    final Animator anim = ViewAnimationUtils.createCircularReveal(revealView, x, y, hypotenuse, 0);
+                    anim.setDuration(250);
+                    anim.addListener(new Animator.AnimatorListener() {
+                        @Override
+                        public void onAnimationStart(Animator animator) {
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animator animator) {
+                            revealView.setVisibility(View.GONE);
+                            flag = false;
+                        }
+
+                        @Override
+                        public void onAnimationCancel(Animator animator) {
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animator animator) {
+                        }
+                    });
+                    anim.start();
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+                }
+            });
+        }
+    }
+
+    @Override
+    public void onEnterAnimationComplete() {
+        super.onEnterAnimationComplete();
     }
 
     @Override

@@ -47,6 +47,44 @@
                 android:fitsSystemWindows="true"
                 app:layout_collapseMode="pin"/>
 
+            <LinearLayout
+                android:id="@+id/revealView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/accent"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:id="@+id/layoutButtons"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <Button
+                        android:id="@+id/duplicate"
+                        style="@style/BlackButton"
+                        android:layout_marginBottom="@dimen/activity_vertical_margin"
+                        android:text="DUPLICATE" />
+
+                    <Button
+                        android:id="@+id/edit"
+                        style="@style/BlackButton"
+                        android:layout_marginBottom="@dimen/activity_vertical_margin"
+                        android:text="EDIT" />
+
+                    <Button
+                        android:id="@+id/delete"
+                        style="@style/BlackButton"
+                        android:text="DELETE" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
@@ -110,6 +148,13 @@
         android:id="@+id/fab"
         app:layout_anchor="@id/app_bar_layout"
         app:layout_anchorGravity="bottom|right|end"
-        style="@style/FabStyle"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/spacing_large"
+        app:borderWidth="2dp"
+        android:src="@drawable/ic_add_black_24dp"
+        app:rippleColor="@color/white"
+        android:elevation="12dp"
+        app:pressedTranslationZ="12dp" />
 
 </android.support.design.widget.CoordinatorLayout>

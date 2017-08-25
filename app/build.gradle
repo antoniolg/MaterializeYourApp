@@ -69,6 +69,7 @@ dependencies {
     compile 'com.android.support:support-v13:' + rootProject.ext.supportLibraryVersion
     compile 'com.android.support:support-v4:' + rootProject.ext.supportLibraryVersion
 
+    compile 'com.jakewharton:butterknife:8.6.0'
     compile 'com.flipboard:bottomsheet-core:1.5.3'
     compile 'com.flipboard:bottomsheet-commons:1.5.3'
     compile 'com.facebook.android:facebook-android-sdk:4.23.+'
@@ -92,7 +93,6 @@ dependencies {
     compile 'me.riddhimanadib.bottom-nav-bar:bottom-nav-bar:1.0.1'
     compile 'com.android.support:design:26.+'
     compile 'com.android.support:recyclerview-v7:26.+'
-    compile 'com.jakewharton:butterknife:8.6.0'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
     testCompile 'junit:junit:4.12'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
 }

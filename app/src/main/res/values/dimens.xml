@@ -25,4 +25,20 @@
     <dimen name="elevation_high">12dp</dimen>
     <dimen name="status_bar_height">25dp</dimen>
     <dimen name="app_bar_height">400dp</dimen>
+
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="dimen_0dp">0dp</dimen>
+    <dimen name="dimen_1dp">1dp</dimen>
+    <dimen name="dimen_2dp">2dp</dimen>
+    <dimen name="dimen_4dp">4dp</dimen>
+    <dimen name="dimen_8dp">8dp</dimen>
+    <dimen name="dimen_14sp">14sp</dimen>
+    <dimen name="dimen_16sp">16sp</dimen>
+    <dimen name="dimen_24dp">24dp</dimen>
+    <dimen name="dimen_32dp">32dp</dimen>
+    <dimen name="dimen_48dp">48dp</dimen>
+    <dimen name="dimen_56dp">56dp</dimen>
+
 </resources>

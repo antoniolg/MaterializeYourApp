@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="primary">#00BCD4</color>
+    <color name="primary_dark">#0097A7</color>
+    <color name="accent">#FFEB3B</color>
+    <color name="accent_translucent">#80FFEB3B</color>
+    <color name="accent_bright">#FFF493</color>
+    <color name="grey">#BEBEBE</color>
+    <color name="twitter">#23C4FF</color>
+    <color name="white">#FFFFFF</color>
+    <color name="faded_black">#333333</color>
+
+</resources>
