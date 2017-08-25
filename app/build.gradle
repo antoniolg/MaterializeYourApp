@@ -29,12 +29,70 @@ android {
     }
 }
 
+android {
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/dependencies.txt'
+        exclude 'META-INF/LGPL2.1'
+    }
+}
+
+repositories {
+    jcenter()
+    mavenCentral()
+    maven { url "https://maven.google.com" }
+    maven { url "https://jitpack.io" }
+}
+
 dependencies {
-    compile "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
-    compile "com.android.support:recyclerview-v7:$rootProject.supportLibraryVersion"
-    compile "com.android.support:cardview-v7:$rootProject.supportLibraryVersion"
-    compile "com.android.support:palette-v7:$rootProject.supportLibraryVersion"
-    compile "com.android.support:design:$rootProject.supportLibraryVersion"
-    compile "com.squareup.picasso:picasso:2.4.0"
     compile fileTree(dir: "libs", include: ["*.jar"])
+
+    compile 'com.android.support:appcompat-v7:' + rootProject.ext.supportLibraryVersion
+    compile 'com.android.support:cardview-v7:' + rootProject.ext.supportLibraryVersion
+    compile 'com.android.support:recyclerview-v7:' + rootProject.ext.supportLibraryVersion
+    compile 'com.android.support:support-v4:' + rootProject.ext.supportLibraryVersion
+    compile 'com.android.support:design:' + rootProject.ext.supportLibraryVersion
+    compile 'com.android.support:percent:' + rootProject.ext.supportLibraryVersion
+    compile 'com.android.support:palette-v7:' + rootProject.ext.supportLibraryVersion
+    compile 'com.android.support:support-vector-drawable:' + rootProject.ext.supportLibraryVersion
+    compile 'com.android.support:animated-vector-drawable:' + rootProject.ext.supportLibraryVersion
+    compile 'com.android.support:support-annotations:' + rootProject.ext.supportLibraryVersion
+    compile 'com.android.support:support-compat:' + rootProject.ext.supportLibraryVersion
+    compile 'com.android.support:support-core-ui:' + rootProject.ext.supportLibraryVersion
+    compile 'com.android.support:support-v13:' + rootProject.ext.supportLibraryVersion
+    compile 'com.android.support:support-v4:' + rootProject.ext.supportLibraryVersion
+
+    compile 'com.jakewharton:butterknife:8.6.0'
+    compile 'com.flipboard:bottomsheet-core:1.5.3'
+    compile 'com.flipboard:bottomsheet-commons:1.5.3'
+    compile 'com.facebook.android:facebook-android-sdk:4.23.+'
+    compile 'com.github.coyarzun89:fabtransitionactivity:0.2.0'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'de.hdodenhof:circleimageview:2.0.0'
+    compile 'com.jakewharton:butterknife:8.6.0'
+    compile 'joda-time:joda-time:2.9.9'
+    compile 'com.android.support:multidex:1.0.1'
+    compile 'com.firebaseui:firebase-ui-database:0.4.0'
+    compile 'pub.devrel:easypermissions:0.1.5'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.7.3'
+    compile 'com.danikula:videocache:2.6.4'
+    compile 'com.dinuscxj:circleprogressbar:1.1.1'
+    compile 'com.afollestad.material-dialogs:core:0.9.4.5'
+    compile 'com.googlecode.mp4parser:isoparser:1.1.22'
+    compile 'javax.inject:javax.inject:1'
+    compile 'com.android.support:support-v4:26.+'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'me.riddhimanadib.bottom-nav-bar:bottom-nav-bar:1.0.1'
+    compile 'com.android.support:design:26.+'
+    compile 'com.android.support:recyclerview-v7:26.+'
+    testCompile 'junit:junit:4.12'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
 }
